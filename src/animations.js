@@ -14,99 +14,28 @@ class Animation{
         this.delay = parseInt(this.element.getAttribute('scrolls-delay')) || 0
     }
 
-
-    fadeIn(){
-        const anim = this.element.animate(
-            keyframes.fadeIn,{
-
-            duration: this.duration,
-            easing: this.easing,
-            delay: this.delay,
-            fill: 'forwards'
-        })
-
-        anim.onfinish = () => {
-            this.show() // ahow after animation completion
-        }
-    }
-
-    fadeOut(){
-        const anim = this.element.animate(
-            keyframes.fadeOut,{ 
-            duration: this.duration,
-            easing: this.easing,
-            delay: this.delay,
-            fill: 'forwards'
-        })
-
-        anim.onfinish = () => {
-            this.hide() // hide after animation completion
-        }
-    }
-
-    fadeDown(){
-        const anim = this.element.animate(
-        keyframes.fadeDown,{
-        
-            duration: this.duration,
-            easing: this.easing,
-            delay: this.delay,
-            fill: 'forwards'
-        
-        })
-
-        anim.onfinish = () => {
-            this.show() // ahow after animation completion
-        }
-    }
-
-    fadeLeft(){
-        const anim = this.element.animate(
-        keyframes.fadeLeft,{
-        
-            duration: this.duration,
-            easing: this.easing,
-            delay: this.delay,
-            fill: 'forwards'
-        
-        })
-
-        anim.onfinish = () => {
-            this.show() // ahow after animation completion
-        }
-    }
-
-    fadeRight(){  
+    play(animationName, isIntersecting){
         this.hideScrollBarX()
-        const anim = this.element.animate( 
-        keyframes.fadeRight,{
+
+        const animationFrames = keyframes.filter(o => o.animationFor === animationName && o.isEntryAnimation === isIntersecting)
         
-            duration: this.duration,
-            easing: this.easing,
-            delay: this.delay,
-            fill: 'forwards'
-        })
+        const anim = this.element.animate(
+            animationFrames[0].frames,
+            {
+                duration: this.duration,
+                easing: this.easing,
+                delay: this.delay,
+                fill: 'forwards'
+
+            }
+        )
 
         anim.onfinish = () => {
-            this.show() // ahow after animation completion
             this.hideScrollBarX()
+            this.show()
         }
-    }
 
-    fadeUp(){
-        const anim = this.element.animate( 
-        keyframes.fadeUp,{
-        
-            duration: this.duration,
-            easing: this.easing,
-            delay: this.delay,
-            fill: 'forwards'
-        
-        })
-
-        anim.onfinish = () => {
-            this.show() // ahow after animation completion
-        }
+        this.hideScrollBarX()
     }
 
     hide(){
@@ -123,6 +52,15 @@ class Animation{
             {overflowX: 'hidden'}
         ],{
             duration: this.duration,
+            fill: 'forwards'
+        })
+
+        this.element.parentNode.parentNode.animate([
+            {overflowX: 'hidden'},
+            {overflowX: 'hidden'}
+        ],{
+            duration: this.duration,
+            fill: 'forwards'
         })
     }
 }
