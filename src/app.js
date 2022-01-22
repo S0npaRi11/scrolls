@@ -19,8 +19,7 @@ const scrollObserverCallback = (ele, isIntersecting) => {
 
     const elementAnimation = new Animation(ele)
     const elementAnimationName = ele.target.getAttribute('scrolls-anim') || 'fade-in'
-    const elementExitAnimationName = ele.target.getAttribute('scrolls-exit') || 'fade-in'
-
-    if(isIntersecting) elementAnimation.play(elementAnimationName, isIntersecting)
-    else elementAnimation.play(elementExitAnimationName, isIntersecting)
+    // const elementExitAnimationName = ele.target.getAttribute('scrolls-exit') || 'fade-in'
+    
+    elementAnimation.play(elementAnimationName, isIntersecting)
 }
