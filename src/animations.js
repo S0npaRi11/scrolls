@@ -32,7 +32,11 @@ class Animation{
 
         anim.onfinish = () => {
             this.hideScrollBarX()
-            this.show()
+            if(isIntersecting){
+                this.show()
+            }else{
+                this.hide()
+            }
         }
 
         this.hideScrollBarX()
